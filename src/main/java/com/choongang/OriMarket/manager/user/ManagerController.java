@@ -326,6 +326,9 @@ public class ManagerController {
 
         //매니저가 소속된 시장의 주문만 리스트에 저장
         List<NewOrder> orderList = (List<NewOrder>) model.getAttribute("managerOrderList");
+        for (NewOrder newOrder:orderList){
+            System.out.println("주문번호:"+newOrder.getOrderNumber());
+        }
         model.addAttribute("orderList", orderList);
 
         //페이징
@@ -348,8 +351,12 @@ public class ManagerController {
             model.addAttribute("statusMessage", "주문이 없습니다.");
         } else {
             NewOrder orderToUpdate = newOrderRepository.findByOrderNumber(order.getOrderNumber());
-            orderToUpdate.setOrderStatus("픽업완료");
-            newOrderRepository.save(orderToUpdate);
+            if(orderToUpdate.getRider() == null){
+                orderToUpdate.setOrderStatus("픽업완료");
+                newOrderRepository.save(orderToUpdate);
+            }else {
+
+            }
         }
         //매니저 정보 가져오기
         ManagerUser userResult = managerService.findByManagerId(model, session);

@@ -90,6 +90,7 @@ public class RiderService {
         List<NewOrder> newOrders = new ArrayList<>();
 
         for (NewOrder newOrder : allNewOrder) {
+            System.out.println("이건먼가요:"+newOrder.getOrderNumber());
             String orderStatus = newOrder.getOrderStatus();
             if (newOrder.getRider() == null) {
                 if (orderStatus == null) {
@@ -99,6 +100,7 @@ public class RiderService {
                 }
             }
         }
+        System.out.println("2");
         return newOrders;
     }
 
